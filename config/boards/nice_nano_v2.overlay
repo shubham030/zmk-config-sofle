@@ -1,0 +1,14 @@
+/*
+ * Custom pin mapping for Sofle with D19 issue
+ * D19 on Pro Micro = P0.19 on Nice!Nano
+ */
+
+&kscan0 {
+    row-gpios
+        = <&pro_micro 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row 0 - D5
+        , <&pro_micro 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row 1 - D6
+        , <&pro_micro 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row 2 - D7
+        , <&pro_micro 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3 - D19 (4th row, your problematic pin)
+        , <&pro_micro 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row 4 - D9
+        ;
+};
