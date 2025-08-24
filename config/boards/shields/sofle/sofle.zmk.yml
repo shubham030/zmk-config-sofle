@@ -1,0 +1,13 @@
+file_format: "1"
+id: sofle
+name: Sofle
+type: shield
+url: https://github.com/shubham030/zmk-config-sofle
+requires: [pro_micro]
+features:
+  - keys
+  - display
+  - encoder
+variants:
+  - shield: sofle_left
+  - shield: sofle_right
