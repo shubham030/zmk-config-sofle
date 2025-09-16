@@ -1,0 +1,19 @@
+# Build artifacts
+build/
+*.uf2
+
+# Keymap drawer generated images (only generated in CI)
+*.svg
+images/*.svg
+keymap.yaml
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db

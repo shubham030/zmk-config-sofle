@@ -16,15 +16,21 @@ This is a ZMK firmware configuration for the Sofle split keyboard, based on the 
 ### QWERTY (Base Layer)
 Standard QWERTY layout with ESC, TAB, and modifier keys in expected positions.
 
+![QWERTY Layer](images/qwerty_layer.svg)
+
 ### LOWER (Layer 1)
 - Function keys (F1-F12)
 - Number row
 - Symbols and special characters
 
+![LOWER Layer](images/lower_layer.svg)
+
 ### RAISE (Layer 2)
 - Navigation keys (arrows, page up/down, home/end)
 - Text editing shortcuts (copy, paste, cut, undo)
 - Word navigation (Ctrl+Left/Right)
+
+![RAISE Layer](images/raise_layer.svg)
 
 ### CODING (Layer 3)
 Development-focused macros:
@@ -32,11 +38,15 @@ Development-focused macros:
 - Kubernetes: get pods, get svc, logs, exec
 - Docker: ps, logs
 
+![CODING Layer](images/coding_layer.svg)
+
 ### ADJUST (Layer 4)
 System controls:
 - Bluetooth profile management
 - Media controls (volume, play/pause, next/prev)
 - Bootloader access
+
+![ADJUST Layer](images/adjust_layer.svg)
 
 ## Building
 

@@ -3,3 +3,59 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN || github.token }}
+          
+      - name: Install keymap-drawer
+        run: pip3 install keymap-drawer
+      
+      - name: Parse ZMK keymap
+        run: keymap parse -c 12 -z config/sofle.keymap > keymap.yaml
+      
+      - name: Generate QWERTY layer image
+        run: |
+          keymap draw keymap.yaml -s "QWERTY" > qwerty_layer.svg
+          
+      - name: Generate LOWER layer image
+        run: |
+          keymap draw keymap.yaml -s "LOWER" > lower_layer.svg
+          
+      - name: Generate RAISE layer image
+        run: |
+          keymap draw keymap.yaml -s "RAISE" > raise_layer.svg
+          
+      - name: Generate CODING layer image
+        run: |
+          keymap draw keymap.yaml -s "CODING" > coding_layer.svg
+          
+      - name: Generate ADJUST layer image
+        run: |
+          keymap draw keymap.yaml -s "ADJUST" > adjust_layer.svg
+      
+      - name: Upload layer images as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: keymap-images
+          path: |
+            qwerty_layer.svg
+            lower_layer.svg
+            raise_layer.svg
+            coding_layer.svg
+            adjust_layer.svg
+            
+      - name: Commit and push images (on main branch only)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          mkdir -p images
+          mv *.svg images/
+          
+          git add images/*.svg
+          git diff --staged --quiet || (git commit -m "Update keymap layer images" && git push)
