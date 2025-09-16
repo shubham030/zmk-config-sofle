@@ -2,9 +2,7 @@
 build/
 *.uf2
 
-# Keymap drawer generated images (only generated in CI)
-*.svg
-images/*.svg
+# Keymap drawer temporary files
 keymap.yaml
 
 # Editor files

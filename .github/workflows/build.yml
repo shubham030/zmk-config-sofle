@@ -21,32 +21,34 @@ jobs:
       - name: Install keymap-drawer
         run: pip install "keymap-drawer<0.20"
       
-      - name: Create output directory
-        run: mkdir -p keymap-drawer
+      - name: Create output directories
+        run: |
+          mkdir -p keymap-drawer
+          mkdir -p images
       
       - name: Parse ZMK keymap
         run: python -m keymap_drawer parse -c 12 -z config/sofle.keymap > keymap-drawer/sofle.yaml
       
       - name: Generate QWERTY layer image
-        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "QWERTY" -o keymap-drawer/qwerty_layer.svg
+        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "QWERTY" -o images/qwerty_layer.svg
           
       - name: Generate LOWER layer image
-        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "LOWER" -o keymap-drawer/lower_layer.svg
+        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "LOWER" -o images/lower_layer.svg
           
       - name: Generate RAISE layer image
-        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "RAISE" -o keymap-drawer/raise_layer.svg
+        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "RAISE" -o images/raise_layer.svg
           
       - name: Generate CODING layer image
-        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "CODING" -o keymap-drawer/coding_layer.svg
+        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "CODING" -o images/coding_layer.svg
           
       - name: Generate ADJUST layer image
-        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "ADJUST" -o keymap-drawer/adjust_layer.svg
+        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "ADJUST" -o images/adjust_layer.svg
       
       - name: Upload layer images as artifacts
         uses: actions/upload-artifact@v4
         with:
           name: keymap-images
-          path: keymap-drawer/*.svg
+          path: images/*.svg
             
       - name: Commit and push images (on main branch only)
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -54,6 +56,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          git add keymap-drawer/
+          git add keymap-drawer/sofle.yaml images/*.svg
           git diff --staged --quiet || git commit -m "[keymap-drawer] Update keymap images"
           git push
