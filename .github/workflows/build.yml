@@ -6,56 +6,54 @@ jobs:
 
   draw:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN || github.token }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
           
       - name: Install keymap-drawer
-        run: pip3 install keymap-drawer
+        run: pip install "keymap-drawer<0.20"
+      
+      - name: Create output directory
+        run: mkdir -p keymap-drawer
       
       - name: Parse ZMK keymap
-        run: keymap parse -c 12 -z config/sofle.keymap > keymap.yaml
+        run: python -m keymap_drawer parse -c 12 -z config/sofle.keymap > keymap-drawer/sofle.yaml
       
       - name: Generate QWERTY layer image
-        run: |
-          keymap draw keymap.yaml -s "QWERTY" > qwerty_layer.svg
+        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "QWERTY" -o keymap-drawer/qwerty_layer.svg
           
       - name: Generate LOWER layer image
-        run: |
-          keymap draw keymap.yaml -s "LOWER" > lower_layer.svg
+        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "LOWER" -o keymap-drawer/lower_layer.svg
           
       - name: Generate RAISE layer image
-        run: |
-          keymap draw keymap.yaml -s "RAISE" > raise_layer.svg
+        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "RAISE" -o keymap-drawer/raise_layer.svg
           
       - name: Generate CODING layer image
-        run: |
-          keymap draw keymap.yaml -s "CODING" > coding_layer.svg
+        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "CODING" -o keymap-drawer/coding_layer.svg
           
       - name: Generate ADJUST layer image
-        run: |
-          keymap draw keymap.yaml -s "ADJUST" > adjust_layer.svg
+        run: python -m keymap_drawer draw keymap-drawer/sofle.yaml --select-layers "ADJUST" -o keymap-drawer/adjust_layer.svg
       
       - name: Upload layer images as artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: keymap-images
-          path: |
-            qwerty_layer.svg
-            lower_layer.svg
-            raise_layer.svg
-            coding_layer.svg
-            adjust_layer.svg
+          path: keymap-drawer/*.svg
             
       - name: Commit and push images (on main branch only)
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           
-          mkdir -p images
-          mv *.svg images/
-          
-          git add images/*.svg
-          git diff --staged --quiet || (git commit -m "Update keymap layer images" && git push)
+          git add keymap-drawer/
+          git diff --staged --quiet || git commit -m "[keymap-drawer] Update keymap images"
+          git push
