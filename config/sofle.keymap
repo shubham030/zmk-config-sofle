@@ -12,105 +12,10 @@
 #define QWERTY 0
 #define LOWER  1
 #define RAISE  2
-#define CODING 3
-#define ADJUST 4
+#define ADJUST 3
 
 / {
-    macros {
-        // Git macros
-        git_add: git_add {
-            label = "git_add";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp G &kp I &kp T &kp SPACE &kp A &kp D &kp D &kp SPACE &kp DOT>;
-        };
-        
-        git_commit: git_commit {
-            label = "git_commit";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp G &kp I &kp T &kp SPACE &kp C &kp O &kp M &kp M &kp I &kp T &kp SPACE &kp MINUS &kp M &kp SPACE &kp DQT &kp DQT &kp LEFT>;
-        };
-        
-        git_push: git_push {
-            label = "git_push";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp G &kp I &kp T &kp SPACE &kp P &kp U &kp S &kp H>;
-        };
-        
-        git_pull: git_pull {
-            label = "git_pull";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp G &kp I &kp T &kp SPACE &kp P &kp U &kp L &kp L>;
-        };
-        
-        git_status: git_status {
-            label = "git_status";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp G &kp I &kp T &kp SPACE &kp S &kp T &kp A &kp T &kp U &kp S>;
-        };
-        
-        git_diff: git_diff {
-            label = "git_diff";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp G &kp I &kp T &kp SPACE &kp D &kp I &kp F &kp F>;
-        };
-        
-        git_log: git_log {
-            label = "git_log";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp G &kp I &kp T &kp SPACE &kp L &kp O &kp G &kp SPACE &kp MINUS &kp MINUS &kp O &kp N &kp E &kp L &kp I &kp N &kp E &kp SPACE &kp MINUS &kp N1 &kp N0>;
-        };
-        
-        // Kubernetes macros
-        k8s_pods: k8s_pods {
-            label = "k8s_pods";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp K &kp U &kp B &kp E &kp C &kp T &kp L &kp SPACE &kp G &kp E &kp T &kp SPACE &kp P &kp O &kp D &kp S>;
-        };
-        
-        k8s_svc: k8s_svc {
-            label = "k8s_svc";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp K &kp U &kp B &kp E &kp C &kp T &kp L &kp SPACE &kp G &kp E &kp T &kp SPACE &kp S &kp V &kp C>;
-        };
-        
-        k8s_logs: k8s_logs {
-            label = "k8s_logs";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp K &kp U &kp B &kp E &kp C &kp T &kp L &kp SPACE &kp L &kp O &kp G &kp S &kp SPACE>;
-        };
-        
-        k8s_exec: k8s_exec {
-            label = "k8s_exec";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp K &kp U &kp B &kp E &kp C &kp T &kp L &kp SPACE &kp E &kp X &kp E &kp C &kp SPACE &kp MINUS &kp I &kp T &kp SPACE>;
-        };
-        
-        // Docker macros
-        docker_ps: docker_ps {
-            label = "docker_ps";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp D &kp O &kp C &kp K &kp E &kp R &kp SPACE &kp P &kp S>;
-        };
-        
-        docker_logs: docker_logs {
-            label = "docker_logs";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp D &kp O &kp C &kp K &kp E &kp R &kp SPACE &kp L &kp O &kp G &kp S &kp SPACE>;
-        };
-    };
+
 
     behaviors {
         hm: homerow_mods {
@@ -142,13 +47,13 @@
 // |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   | BKSPC |
 // |  ESC  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
 // | SHIFT |  Z  |  X  |  C   |  V   |  B   |  MUTE  |  |       |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-//               | GUI | ALT  | CTRL | LOWER|  ENTER |  | SPACE | RAISE| CODING| ALT   | GUI  |
+//               | GUI | ALT  | CTRL | LOWER|  ENTER |  | SPACE | RAISE| CTRL  | ALT   | GUI  |
             bindings = <
 &kp GRAVE &kp N1 &kp N2   &kp N3   &kp N4    &kp N5                           &kp N6     &kp N7    &kp N8    &kp N9   &kp N0   &kp MINUS
 &kp TAB   &kp Q  &kp W    &kp E    &kp R     &kp T                            &kp Y      &kp U     &kp I     &kp O    &kp P    &kp BSPC
 &kp ESC   &kp A  &kp S    &kp D    &kp F     &kp G                            &kp H      &kp J     &kp K     &kp L    &kp SEMI &kp SQT
 &kp LSHFT &kp Z  &kp X    &kp C    &kp V     &kp B      &kp C_MUTE &none      &kp N      &kp M     &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
-                 &kp LGUI &kp LALT &kp LCTRL &mo LOWER  &kp RET    &kp SPACE  &mo RAISE  &mo CODING &kp RALT  &kp RGUI
+                 &kp LGUI &kp LALT &kp LCTRL &mo LOWER  &kp RET    &kp SPACE  &mo RAISE  &kp RCTRL &kp RALT  &kp RGUI
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -192,24 +97,7 @@
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        coding_layer {
-            label = "CODING";
-// ------------------------------------------------------------------------------------------------------------
-// |       |     |     |      |      |      |                   |      |       |       |      |       |       |
-// |       | g add| k8s pods| docker ps|  |      |              |      |       |       |      |       |       |
-// |       | g commit| k8s svc| docker logs|  |      |          |      |       |       |      |       |       |
-// |       | g push| k8s logs| k8s exec|   |      |     |  |    |      |       |       |      |       |       |
-//               |     |      |      |      |        |  |       |      |       |       |      |
-            bindings = <
-&trans &trans      &trans     &trans        &trans &trans                    &trans &trans &trans &trans &trans &trans
-&trans &git_add    &k8s_pods  &docker_ps    &trans &trans                    &trans &trans &trans &trans &trans &trans
-&trans &git_commit &k8s_svc   &docker_logs  &trans &trans                    &trans &trans &trans &trans &trans &trans
-&trans &git_push   &k8s_logs  &k8s_exec     &trans &trans  &trans   &trans   &trans &trans &trans &trans &trans &trans
-                   &trans     &trans        &trans &trans  &trans   &trans   &trans &trans &trans &trans
-            >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
-        };
 
         adjust_layer {
             label = "ADJUST";
