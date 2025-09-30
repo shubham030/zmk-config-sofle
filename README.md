@@ -4,11 +4,11 @@ This is a ZMK firmware configuration for the Sofle split keyboard, based on the 
 
 ## Features
 
-- 5 layers: QWERTY, LOWER, RAISE, CODING, and ADJUST
-- Coding layer with Git, Kubernetes, and Docker macros
+- 4 layers: QWERTY, LOWER, RAISE, and ADJUST
 - Conditional layer (LOWER + RAISE = ADJUST)
 - Encoder support for volume and page scrolling
-- OLED display support
+- OLED display with battery percentage
+- ZMK Studio support for real-time keymap editing
 - Optimized for macOS usage
 
 ## Layers
@@ -32,19 +32,12 @@ Standard QWERTY layout with ESC, TAB, and modifier keys in expected positions.
 
 ![RAISE Layer](images/raise_layer.svg)
 
-### CODING (Layer 3)
-Development-focused macros:
-- Git commands: add, commit, push, pull, status, diff, log
-- Kubernetes: get pods, get svc, logs, exec
-- Docker: ps, logs
-
-![CODING Layer](images/coding_layer.svg)
-
-### ADJUST (Layer 4)
+### ADJUST (Layer 3)
 System controls:
 - Bluetooth profile management
 - Media controls (volume, play/pause, next/prev)
 - Bootloader access
+- ZMK Studio unlock
 
 ![ADJUST Layer](images/adjust_layer.svg)
 
